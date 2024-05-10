@@ -1,0 +1,62 @@
+package multipleBroserTesting;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import com.beust.jcommander.Parameter;
+
+public class POC_multiplebrowser {
+	String key="webdriver.chrome.driver";
+	String value="D:\\SeleniumDemo\\drivers\\chromedriver.exe";
+	String value02="D:\\SeleniumDemo\\drivers\\msedgedriver.exe";
+	String key02="wedriver.edge.driver";
+	String url="https://www.myntra.com";	
+	WebDriver dr;	
+	By men=By.xpath("//*[@id=\"desktop-header-cnt\"]/div[2]/nav/div/div[1]/div/a");
+	By kids=By.xpath("//*[@id=\"desktop-header-cnt\"]/div[2]/nav/div/div[3]/div/a");
+	By HL=By.xpath("//*[@id=\"desktop-header-cnt\"]/div[2]/nav/div/div[4]/div/a");
+	By beauty=By.xpath("//*[@id=\"desktop-header-cnt\"]/div[2]/nav/div/div[5]/div/a");
+	By makeup=By.xpath("//*[@id=\"desktop-header-cnt\"]/div[2]/nav/div/div[5]/div/div/div/div/li[1]/ul/li[1]/a");
+	By lip=By.xpath("//*[@id=\"desktop-header-cnt\"]/div[2]/nav/div/div[5]/div/div/div/div/li[1]/ul/li[2]/a");
+	By mascara=By.xpath("//*[@id=\"desktop-header-cnt\"]/div[2]/nav/div/div[5]/div/div/div/div/li[1]/ul/li[5]/a");
+	//By mars=By.xpath("//*[@id=\"mountRoot\"]/div/main/div[3]/div[1]/section/div/div[3]/ul/li[8]/label");
+	//By pink=By.xpath("//*[@id=\"mountRoot\"]/div/main/div[3]/div[1]/section/div/div[5]/ul/li[5]/label");
+	By multicolor=By.xpath("//*[@id=\"mountRoot\"]/div/main/div[3]/div[1]/section/div/div[5]/ul/li[8]/label");
+	
+	@Parameters("browsers")
+	@Test
+	void testcase(String param) {		
+			
+		if(param.equalsIgnoreCase("edg")) {
+			System.setProperty(key02,value02);
+			dr=new EdgeDriver();
+		}
+		if(param.equalsIgnoreCase("chro")) {
+			System.setProperty(key,value);
+			dr=new ChromeDriver();
+		}			
+			Actions act=new Actions(dr);
+			dr.get(url);		
+			dr.findElement(men).click();
+			dr.findElement(kids).click();
+			dr.findElement(HL).click();
+			dr.findElement(beauty).click();
+			act.moveToElement(dr.findElement(beauty)).build().perform();
+			dr.findElement(makeup).click();
+			act.moveToElement(dr.findElement(beauty)).build().perform();
+			dr.findElement(lip).click();
+			act.moveToElement(dr.findElement(beauty)).build().perform();
+			dr.findElement(mascara).click();		
+			//act.moveToElement(dr.findElement(beauty)).build().perform();
+			//dr.findElement(mars).click();
+			//act.moveToElement(dr.findElement(beauty)).build().perform();
+			//dr.findElement(pink).click();
+			act.moveToElement(dr.findElement(beauty)).build().perform();
+			dr.findElement(multicolor).click();
+	}
+}
